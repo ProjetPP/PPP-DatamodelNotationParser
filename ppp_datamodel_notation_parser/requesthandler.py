@@ -1,12 +1,23 @@
 """Request handler of the module."""
 
-from ppp_core.exceptions import ClientError
+from functools import partial
+
+from ppp_datamodel import Sentence, TraceItem, Response
+from ppp_datamodel import parse_triples
+
+def tree_to_response(measures, trace, tree):
+    trace = trace + [TraceItem('DatamodelNotationParser',
+                                            tree, measures)]
+    return Response('en', tree, measures, trace)
 
 class RequestHandler:
     def __init__(self, request):
-        # TODO: Implement this
-        pass
+        self.request = request
 
     def answer(self):
-        # TODO: Implement this
-        pass
+        if not isinstance(self.request.tree, Sentence):
+            return []
+        forest = parse_triples(self.request.tree.value)
+        measures = {'accuracy': 1, 'relevance': 0.5}
+        return map(partial(tree_to_response, measures, self.request.trace),
+                   forest)
