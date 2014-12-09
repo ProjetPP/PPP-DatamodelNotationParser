@@ -3,7 +3,7 @@
 from functools import partial
 
 from ppp_datamodel import Sentence, TraceItem, Response
-from ppp_datamodel import parse_triples
+from ppp_datamodel.parsers import parse_triples, ParseError
 
 def tree_to_response(measures, trace, tree):
     trace = trace + [TraceItem('DatamodelNotationParser',
@@ -17,7 +17,10 @@ class RequestHandler:
     def answer(self):
         if not isinstance(self.request.tree, Sentence):
             return []
-        forest = parse_triples(self.request.tree.value)
+        try:
+            forest = parse_triples(self.request.tree.value)
+        except ParseError:
+            return []
         measures = {'accuracy': 1, 'relevance': 0.5}
         return map(partial(tree_to_response, measures, self.request.trace),
                    forest)

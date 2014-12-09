@@ -18,3 +18,10 @@ class RequestHandlerTest(PPPTestCase(app)):
                     Resource('foo'),
                     Resource('bar'),
                     Missing()))
+
+    def testParseError(self):
+        j = {'id': '1', 'language': 'en', 'measures': {}, 'trace': [],
+             'tree': {'type': 'sentence', 'value': '(foo, bar, )'}}
+
+        answers = self.request(j)
+        self.assertEqual(answers, [])
