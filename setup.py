@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='ppp_datamodel_notation_parser',
-    version='0.1.3',
+    version='0.1.4',
     description='A module parsing a human-writable representation of a question tree.',
     url='https://github.com/ProjetPP',
     author='Valentin Lorentz',
@@ -24,7 +24,7 @@ setup(
         'Topic :: Software Development :: Libraries',
     ],
     install_requires=[
-        'ppp_datamodel>=0.5.20',
+        'ppp_datamodel>=0.5.21',
         'ppp_libmodule>=0.7',
     ],
     packages=[
