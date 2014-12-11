@@ -25,3 +25,10 @@ class RequestHandlerTest(PPPTestCase(app)):
 
         answers = self.request(j)
         self.assertEqual(answers, [])
+
+    def testResource(self):
+        j = {'id': '1', 'language': 'en', 'measures': {}, 'trace': [],
+             'tree': {'type': 'sentence', 'value': 'foo'}}
+
+        answers = self.request(j)
+        self.assertEqual(answers, [])

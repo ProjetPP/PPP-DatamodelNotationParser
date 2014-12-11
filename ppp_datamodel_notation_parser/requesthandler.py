@@ -2,7 +2,7 @@
 
 from functools import partial
 
-from ppp_datamodel import Sentence, TraceItem, Response
+from ppp_datamodel import Sentence, TraceItem, Response, Resource
 from ppp_datamodel.parsers import parse_triples, ParseError
 
 def tree_to_response(tree, measures, trace):
@@ -20,6 +20,8 @@ class RequestHandler:
         try:
             tree = parse_triples(self.request.tree.value)
         except ParseError:
+            return []
+        if isinstance(tree, Resource):
             return []
         measures = {'accuracy': 1, 'relevance': 0.5}
         return [tree_to_response(tree, measures, self.request.trace)]
