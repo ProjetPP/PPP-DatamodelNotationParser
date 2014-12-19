@@ -5,10 +5,10 @@ from functools import partial
 from ppp_datamodel import Sentence, TraceItem, Response, Resource
 from ppp_datamodel.parsers import parse_triples, ParseError
 
-def tree_to_response(tree, measures, trace):
+def tree_to_response(language, tree, measures, trace):
     trace = trace + [TraceItem('DatamodelNotationParser',
                                             tree, measures)]
-    return Response('en', tree, measures, trace)
+    return Response(language, tree, measures, trace)
 
 class RequestHandler:
     def __init__(self, request):
@@ -23,5 +23,6 @@ class RequestHandler:
             return []
         if isinstance(tree, Resource):
             return []
+        language = self.request.language
         measures = {'accuracy': 1, 'relevance': 0.5}
-        return [tree_to_response(tree, measures, self.request.trace)]
+        return [tree_to_response(language, tree, measures, self.request.trace)]
