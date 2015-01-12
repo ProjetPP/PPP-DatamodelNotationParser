@@ -3,7 +3,7 @@
 from functools import partial
 
 from ppp_datamodel import Sentence, TraceItem, Response, Resource
-from ppp_datamodel.parsers import parse_triples, ParseError
+from .parser import parse_triples, ParseError
 
 def tree_to_response(language, tree, measures, trace):
     trace = trace + [TraceItem('DatamodelNotationParser',
