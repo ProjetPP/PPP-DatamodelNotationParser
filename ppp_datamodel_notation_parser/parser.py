@@ -51,11 +51,11 @@ def p_triple(t):
     t[0] = Triple(t[2], t[4], t[6])
 
 def p_list_body_singleton(t):
-    """list_body : expression"""
+    """list_body : RESOURCE"""
     t[0] = [t[1]]
 
 def p_list_body_comma(t):
-    """list_body : list_body COMMA expression"""
+    """list_body : list_body COMMA RESOURCE"""
     t[0] = t[1]
     t[0].append(t[3])
 

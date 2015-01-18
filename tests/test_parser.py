@@ -43,38 +43,6 @@ class TripleParserTestCase(TestCase):
         self.assertEqual(parse_triples('[foo]'), Resource('foo'))
         self.assertEqual(parse_triples('[foo, bar]'),
                 List([Resource('foo'), Resource('bar')]))
-        self.assertEqual(parse_triples('[(?,?,?)]'),
-                Triple(
-                    Missing(),
-                    Missing(),
-                    Missing(),
-                    )
-                )
-        self.assertEqual(parse_triples('[foo, (?,?,?)]'), List([
-                Resource('foo'),
-                Triple(
-                    Missing(),
-                    Missing(),
-                    Missing(),
-                    )
-                ]))
-        self.assertEqual(parse_triples('(foo, [bar, (?, ?, baz)], (?, bar, [qux]))'),
-                Triple(
-                    Resource('foo'),
-                    List([
-                        Resource('bar'),
-                        Triple(
-                            Missing(),
-                            Missing(),
-                            Resource('baz'),
-                            ),
-                        ]),
-                    Triple(
-                        Missing(),
-                        Resource('bar'),
-                        Resource('qux'),
-                    ),
-                ))
 
     def testOperators(self):
         t1 = And([
