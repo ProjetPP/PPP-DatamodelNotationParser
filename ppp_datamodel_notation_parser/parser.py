@@ -43,7 +43,7 @@ t_ignore = ' '
 def t_error(t):
     raise ParseError('Illegal string `%s`' % t.value)
 
-lex.lex()
+lexer = lex.lex()
 
 
 def p_triple(t):
@@ -121,7 +121,7 @@ def p_expression(t):
 def p_error(t):
     raise ParseError("Syntax error at '%s'" % t.value)
 
-parser = yacc.yacc(start='expression')
+parser = yacc.yacc(start='expression', debug=0, write_tables=0)
 
 def simplify(tree):
     """Simplify a tree (makes it more human/developper-readable) by
@@ -139,4 +139,4 @@ def simplify(tree):
         return tree
 
 def parse_triples(sentence):
-    return simplify(parser.parse(sentence))
+    return simplify(parser.parse(sentence, lexer=lexer))
