@@ -50,6 +50,10 @@ def p_triple(t):
     """triple : L_PAREN expression COMMA expression COMMA expression R_PAREN"""
     t[0] = Triple(t[2], t[4], t[6])
 
+def p_triple_reverse(t):
+    """triple : L_PAREN expression COMMA expression COMMA expression COMMA expression R_PAREN"""
+    t[0] = Triple(t[2], t[4], t[6], t[8])
+
 def p_list_body_singleton(t):
     """list_body : RESOURCE"""
     t[0] = [t[1]]
@@ -134,7 +138,8 @@ def simplify(tree):
     elif isinstance(tree, Triple):
         return Triple(simplify(tree.subject),
                       simplify(tree.predicate),
-                      simplify(tree.object))
+                      simplify(tree.object),
+                      simplify(tree.inverse_predicate))
     else:
         return tree
 

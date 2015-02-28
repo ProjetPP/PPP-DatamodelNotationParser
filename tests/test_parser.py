@@ -10,6 +10,8 @@ class TripleParserTestCase(TestCase):
                 Triple(Missing(), Missing(), Missing()))
         self.assertEqual(parse_triples('(?, ?, ?)'),
                 Triple(Missing(), Missing(), Missing()))
+        self.assertEqual(parse_triples('(?, ?, ?, foo)'),
+                Triple(Missing(), Missing(), Missing(), Resource('foo')))
     def testTriples(self):
         self.assertEqual(parse_triples('(foo, (bar, ?, (?, qux, quux)), ?)'),
                 Triple(
